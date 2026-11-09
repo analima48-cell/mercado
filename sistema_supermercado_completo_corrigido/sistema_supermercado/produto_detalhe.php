@@ -1,0 +1,10 @@
+<?php
+require 'config.php';require 'includes/header.php';$id=(int)($_GET['id']??0);$st=$pdo->prepare('SELECT p.*,c.nome categoria FROM produtos p JOIN categorias c ON c.id=p.categoria_id WHERE p.id=?');$st->execute([$id]);$p=$st->fetch();
+if(!$p){echo '<div class="alert erro">Produto não encontrado. O código informado pode ser inválido ou o registro pode ter sido removido.</div><a class="btn" href="produtos.php">Voltar aos produtos</a>';require 'includes/footer.php';exit;}
+?>
+<div class="eyebrow">Catálogo / Detalhes</div><h1 class="titulo"><?=e($p['nome'])?></h1><p class="subtitulo">Consulte todas as informações deste produto.</p>
+<div class="painel" style="padding:22px"><div class="detalhes">
+<div class="detalhe"><small>Código</small><strong><?=e($p['codigo'])?></strong></div><div class="detalhe"><small>Categoria</small><strong><?=e($p['categoria'])?></strong></div><div class="detalhe"><small>Preço</small><strong><?=dinheiro($p['preco'])?></strong></div><div class="detalhe"><small>Estoque atual</small><strong><?=e($p['estoque'])?> unidades</strong></div><div class="detalhe"><small>Estoque mínimo</small><strong><?=e($p['estoque_minimo'])?> unidades</strong></div><div class="detalhe"><small>Validade</small><strong><?=$p['validade']?date('d/m/Y',strtotime($p['validade'])):'Não informada'?></strong></div><div class="detalhe" style="grid-column:1/-1"><small>Descrição</small><strong><?=nl2br(e($p['descricao']?:'Sem descrição.'))?></strong></div>
+</div><?php if($p['validade']&&$p['validade']<date('Y-m-d')): ?><div class="alert erro">Atenção: este produto está com a validade vencida.</div><?php elseif($p['estoque']<=$p['estoque_minimo']): ?><div class="aviso">Atenção: o estoque está no limite mínimo ou abaixo dele. Considere fazer uma reposição.</div><?php endif ?>
+<div class="rodape-acoes"><a class="btn" href="produto_form.php?id=<?=$p['id']?>">Editar produto</a><a class="btn sec" href="produtos.php">Voltar à listagem</a></div></div>
+<?php require 'includes/footer.php'; ?>

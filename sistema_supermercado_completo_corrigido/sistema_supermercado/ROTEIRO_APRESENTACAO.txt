@@ -1,0 +1,25 @@
+ROTEIRO DE APRESENTAÇÃO — MERCADO FÁCIL
+
+“Nosso projeto é um sistema de supermercado desenvolvido para facilitar a organização dos produtos e das categorias. O objetivo é permitir que o responsável pelo estabelecimento cadastre os produtos, consulte informações, acompanhe o estoque e identifique produtos próximos do vencimento ou já vencidos.
+
+Utilizamos PHP para a programação do sistema, MySQL/MariaDB para armazenar os dados e HTML e CSS para montar a interface. O ambiente local pode ser executado pelo XAMPP, e o banco pode ser administrado pelo phpMyAdmin.
+
+O banco de dados possui as tabelas categorias, produtos e movimentações. Uma categoria pode estar relacionada a vários produtos. Cada produto possui código, nome, categoria, preço, quantidade em estoque, estoque mínimo e validade.
+
+Na página inicial, mostramos indicadores com a quantidade de produtos, categorias, itens com estoque baixo e produtos vencidos. Na área de produtos, é possível cadastrar, consultar, editar, excluir, pesquisar pelo nome ou código e filtrar por categoria.
+
+Também criamos validações. O sistema não permite campos obrigatórios vazios, preço igual ou menor que zero, estoque fracionado, código duplicado ou categoria inexistente. Além disso, uma categoria que possui produtos vinculados não pode ser excluída, evitando problemas no relacionamento do banco.
+
+Na parte de estoque, o sistema destaca produtos cuja quantidade chegou ao estoque mínimo ou ficou abaixo dele. Também identifica produtos vencidos e aqueles que vencerão nos próximos 30 dias.
+
+Com isso, o sistema ajuda a manter os dados organizados, reduz erros de cadastro e facilita o acompanhamento do estoque do supermercado.”
+
+DEMONSTRAÇÃO SUGERIDA
+1. Mostrar a página inicial e seus indicadores.
+2. Abrir Categorias e cadastrar uma categoria de teste.
+3. Abrir Produtos e cadastrar um produto válido.
+4. Mostrar a listagem, pesquisar o produto e filtrar pela categoria.
+5. Abrir os detalhes e editar o preço ou nome.
+6. Tentar salvar preço negativo e estoque decimal para mostrar as validações.
+7. Tentar excluir uma categoria que tenha produtos vinculados.
+8. Abrir Estoque e mostrar os alertas de estoque baixo e validade.

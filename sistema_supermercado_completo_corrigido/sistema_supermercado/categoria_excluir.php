@@ -1,0 +1,6 @@
+<?php
+require 'config.php';require 'includes/header.php';$id=(int)($_GET['id']??0);$s=$pdo->prepare('SELECT c.*,COUNT(p.id) total FROM categorias c LEFT JOIN produtos p ON p.categoria_id=c.id WHERE c.id=? GROUP BY c.id');$s->execute([$id]);$c=$s->fetch();
+if(!$c){echo '<div class="alert erro">Categoria não encontrada.</div><a class="btn" href="categorias.php">Voltar</a>';require 'includes/footer.php';exit;}
+?>
+<div class="eyebrow">Organização / Exclusão</div><h1 class="titulo">Excluir categoria</h1><div class="painel" style="padding:22px;max-width:680px"><?php if($c['total']>0): ?><div class="alert erro">Não é possível excluir <strong><?=e($c['nome'])?></strong>, pois existem <?=$c['total']?> produto(s) vinculados. Transfira ou exclua os produtos primeiro.</div><a class="btn sec" href="categorias.php">Voltar às categorias</a><?php else: ?><div class="aviso">Confirme a exclusão da categoria <strong><?=e($c['nome'])?></strong>. Esta ação não poderá ser desfeita.</div><form method="post" action="categoria_excluir_confirmar.php"><input type="hidden" name="id" value="<?=$id?>"><div class="form-acoes"><button class="btn danger">Confirmar exclusão</button><a class="btn sec" href="categorias.php">Cancelar</a></div></form><?php endif ?></div>
+<?php require 'includes/footer.php'; ?>

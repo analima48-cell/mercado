@@ -1,0 +1,2 @@
+<?php
+require 'config.php';require 'includes/funcoes.php';if($_SERVER['REQUEST_METHOD']!=='POST'){redirecionar('categorias.php');}$id=(int)($_POST['id']??0);$s=$pdo->prepare('SELECT COUNT(*) FROM produtos WHERE categoria_id=?');$s->execute([$id]);if($s->fetchColumn()>0){flash('erro','A categoria possui produtos vinculados e não pode ser excluída.');}else{$s=$pdo->prepare('DELETE FROM categorias WHERE id=?');$s->execute([$id]);flash('sucesso','Categoria excluída.');}redirecionar('categorias.php');
